@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Reflection.Metadata;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Collision")]
     [SerializeField] LayerMask obstacleMask = ~0; // layer(s) your cubes are on (default: everything)
+    [SerializeField] LayerMask KillMask; // to detect water and lava
 
     [Header("Gravity")]
     [SerializeField] float gravity = 25f; // how fast the fall accelerates
@@ -26,13 +28,26 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask movableMask; // layermask detection for objects with the "movable" tag
     [SerializeField] float pushSpeed = 2f; // speed of which we move the blocks
 
-    float nextDashTime;
+    float sinkDepth = 1f; 
+    float sinkDuration = 0.6f;
 
+    float nextDashTime;
 
     void Update()
     {
+
         if (isMoving) return; // ignore input mid-move
-        if (!IsSolid(transform.position + Vector3.down))
+
+
+        Vector3 below = transform.position + Vector3.down;
+
+        if (IsDeadly(transform.position) || IsDeadly(below))
+        {
+            StartCoroutine(SinkAndDie());
+            return;
+        }
+
+        if (!IsSolid(below))
         {
             StartCoroutine(Fall());
             return;
@@ -59,12 +74,13 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 pos = transform.position;
         Vector3 front = pos + dir;
+        Vector3 ahead = transform.position + dir;
 
         if (!IsSolid(front))
         {
             StartCoroutine(Slide(front, speed)); // nothing in the way: normal move
         }
-        else if (!IsSolid(front + Vector3.up) && !IsSolid(pos + Vector3.up))
+        else if (IsSolid(ahead) && !IsSolid(ahead + Vector3.up) && !IsBlockSinking(ahead))
         {
             StartCoroutine(Climb(dir)); // exactly 1 block tall, and there's room to flip over it and prevents climbing if the height infront is 2 blocks instead
         }
@@ -108,16 +124,17 @@ public class PlayerController : MonoBehaviour
         isMoving = false;
     }
 
+    bool IsDeadly(Vector3 cellCenter) => Physics.CheckBox(cellCenter, Vector3.one * 0.45f, Quaternion.identity, KillMask, QueryTriggerInteraction.Collide);
+    bool IsSolid(Vector3 cellCenter) => Physics.CheckBox(cellCenter, Vector3.one * 0.45f, Quaternion.identity, obstacleMask &~KillMask.value, QueryTriggerInteraction.Ignore); // checks for blocks, what layer and ignore rotation and istrigger colliders,
 
-    bool IsSolid(Vector3 cellCenter) => Physics.CheckBox(cellCenter, Vector3.one * 0.45f, Quaternion.identity, obstacleMask, QueryTriggerInteraction.Ignore); // checks for blocks, what layer and ignore rotation and istrigger colliders,
-
+   
     IEnumerator Fall()
     {
         isMoving = true;
         float velocity = 0f; //start at zero speed to imitate gravity
 
         
-        while (!IsSolid(transform.position + Vector3.down))// keep dropping the player one block at a time until there's a block underneath.
+        while (!IsSolid(transform.position + Vector3.down) && !IsDeadly(transform.position + Vector3.down)) // keep dropping the player one block at a time until there's a block underneath.
         {
             Vector3 target = transform.position + Vector3.down;
 
@@ -198,5 +215,33 @@ public class PlayerController : MonoBehaviour
     {
         Collider[] hits = Physics.OverlapBox(cellCenter, Vector3.one * 0.45f, Quaternion.identity, movableMask, QueryTriggerInteraction.Ignore);
         return hits.Length > 0 ? hits[0].GetComponentInParent<MovableBlocks>() : null;
+    }
+    IEnumerator SinkAndDie()
+    {
+        isMoving = true;
+
+        Vector3 start = transform.position;
+        Vector3 end = start + Vector3.down * sinkDepth; //initalizing lerp
+        float t = 0f;
+
+        while (t < 1f)
+        {
+            t += Time.deltaTime / sinkDuration;
+            transform.position = Vector3.Lerp(start, end, t); // linear interpolation to make a smooth sinking "animation" when player touches lava or water
+            yield return null;
+        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    bool IsBlockSinking(Vector3 cell)
+    {
+        Collider[] hits = Physics.OverlapBox(cell, Vector3.one * 0.45f, Quaternion.identity,
+                                             obstacleMask, QueryTriggerInteraction.Ignore);
+        foreach (Collider c in hits)
+        {
+            MovableBlocks block = c.GetComponentInParent<MovableBlocks>();
+            if (block != null && block.IsSinking) return true;
+        }
+        return false;
     }
 }
