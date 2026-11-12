@@ -16,6 +16,9 @@ public class MovableBlocks : MonoBehaviour
     public bool IsBusy { get; set; } //true while the block is falling or being pushed/pulled to prevent double inputs
     public bool IsSinking { get; private set; } //to communicate to the player that theres a block sinking, so ucant climb onto it
 
+    [Header("Block Sounds")]
+    [SerializeField] SinkingSound[] sinkingSounds; // array so that it doesnt get messy when adding sfx interactions with future blocks like the plant or more
+
     void Update()
     {
         if (IsBusy) return;
@@ -72,6 +75,8 @@ public class MovableBlocks : MonoBehaviour
         IsBusy = true;
         IsSinking = true;
 
+        AudioManager.instance.PlayOneShot(GetSinkingSound(GetKillTag()).sink, transform.position);
+
         Vector3 start = transform.position;
         Vector3 end = start + Vector3.down * sinkDepth; //initalizing lerp
         float t = 0f;
@@ -89,6 +94,8 @@ public class MovableBlocks : MonoBehaviour
     {
         IsBusy = true;
         IsSinking = true;
+
+        AudioManager.instance.PlayOneShot(GetSinkingSound(GetLiquidTag()).sink, transform.position);
 
         Vector3 start = transform.position;
         Vector3 end = start + Vector3.down * sinkDepth; //initalizing lerp
@@ -109,5 +116,40 @@ public class MovableBlocks : MonoBehaviour
     {
         foreach (Collider c in Physics.OverlapBox(cell, Vector3.one * 0.45f, Quaternion.identity, FillMask, QueryTriggerInteraction.Collide))
             c.gameObject.SetActive(false);
+    }
+
+    SinkingSound GetSinkingSound(string surfaceTag)
+    {
+        foreach (SinkingSound s in sinkingSounds)
+            if (s.tag == surfaceTag) return s;
+        return null;
+    }
+
+    string GetLiquidTag()
+    {
+        Collider[] hits = Physics.OverlapBox(transform.position, Vector3.one * 0.45f, Quaternion.identity, FillMask, QueryTriggerInteraction.Collide); //checks infront
+        if (hits.Length == 0)
+        hits = Physics.OverlapBox(transform.position + Vector3.down, Vector3.one * 0.45f, Quaternion.identity, FillMask, QueryTriggerInteraction.Collide); //checks below
+
+        if (hits.Length > 0)
+        {
+            return hits[0].tag;
+        }
+
+        return "Untagged";
+    }
+
+    string GetKillTag()
+    {
+        Collider[] hits = Physics.OverlapBox(transform.position, Vector3.one * 0.45f, Quaternion.identity, KillMask, QueryTriggerInteraction.Collide); //checks infront
+        if (hits.Length == 0)
+            hits = Physics.OverlapBox(transform.position + Vector3.down, Vector3.one * 0.45f, Quaternion.identity, KillMask, QueryTriggerInteraction.Collide); //checks below
+
+        if (hits.Length > 0)
+        {
+            return hits[0].tag; //same as the getliquidtag but the KillMask detection is added.
+        }
+
+        return "Untagged";
     }
 }

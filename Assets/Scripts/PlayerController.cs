@@ -1,7 +1,8 @@
+using FMODUnity;
 using System.Collections;
-using System.Reflection.Metadata;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static Unity.Collections.AllocatorManager;
 
 public class PlayerController : MonoBehaviour
 {
@@ -33,10 +34,17 @@ public class PlayerController : MonoBehaviour
 
     float nextDashTime;
 
+    [Header("Block Sounds")]
+    [SerializeField] MovableBlockSound[] movableBlockSounds; // array so that it doesnt get messy when adding sfx interactions with future blocks like the plant or more
+    [SerializeField] PlayerSound[] playerSounds; //sfx related to the player, so that its tidier instead of using blockSounds for everythingand i have to add redundant sfx to the array
+
+    [Header("Player movement SFX")]
+    [field: SerializeField] private EventReference PlayerDash;
+
     void Update()
     {
 
-        if (isMoving) return; // ignore input mid-move
+        if (isMoving) return; // ignore inputs mid-move
 
 
         Vector3 below = transform.position + Vector3.down;
@@ -53,18 +61,15 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        // Always WORLD-space directions, so WASD means the same thing no matter how the player is rotated.
-        // (Never use transform.forward / right / up for input.)
         Vector3 dir = Vector3.zero;
         if (Input.GetKeyDown(KeyCode.W)) dir = new Vector3(-1, 0, 0);
         else if (Input.GetKeyDown(KeyCode.S)) dir = new Vector3(1, 0, 0);
         else if (Input.GetKeyDown(KeyCode.D)) dir = new Vector3(0, 0, 1);
-        else if (Input.GetKeyDown(KeyCode.A)) dir = new Vector3(0, 0, -1);
+        else if (Input.GetKeyDown(KeyCode.A)) dir = new Vector3(0, 0, -1); //all by 1 as the unity world is built with cubes of 1x1
 
         if (dir != Vector3.zero)
         {
-            if (Input.GetKey(KeyCode.F)) TryPush(dir);
-            else if (Input.GetKey(KeyCode.G)) TryPull(dir);
+            if (Input.GetKey(KeyCode.F)) TryPushPull(dir);
             else if (Input.GetKey(KeyCode.Space)) TryDash(dir);
             else TryMove(dir);
         }
@@ -73,17 +78,18 @@ public class PlayerController : MonoBehaviour
     void TryMove(Vector3 dir)
     {
         Vector3 pos = transform.position;
-        Vector3 front = pos + dir;
         Vector3 ahead = transform.position + dir;
 
-        if (!IsSolid(front))
+        if (!IsSolid(ahead))
         {
-            StartCoroutine(Slide(front, speed)); // nothing in the way: normal move
+            StartCoroutine(Slide(ahead, speed)); // nothing in the way: normal move
+            AudioManager.instance.PlayOneShot(GetPlayerSound(GetSurfaceTag(ahead + Vector3.down)).walk, transform.position); // detect below us as we're walkin
         }
-        else if (IsSolid(ahead) && !IsSolid(ahead + Vector3.up) && !IsBlockSinking(ahead))
+        else if (!IsSolid(ahead + Vector3.up) && !IsBlockSinking(ahead))
         {
             StartCoroutine(Climb(dir)); // exactly 1 block tall, and there's room to flip over it and prevents climbing if the height infront is 2 blocks instead
-        }
+            AudioManager.instance.PlayOneShot(GetPlayerSound(GetSurfaceTag(ahead)).walk, transform.position); //detect infront of us as we're climbing
+        }  
     }
 
     IEnumerator Slide(Vector3 target, float moveSpeed)
@@ -106,13 +112,13 @@ public class PlayerController : MonoBehaviour
 
         Vector3 pivot = startPos + dir * 0.5f + Vector3.up * 0.5f; // pivot = top edge of the block in front (which is also the player's own top-front edge). which allows for a smooth perfect looking rotation
 
-        Vector3 axis = Vector3.Cross(Vector3.up, dir); // Horizontal axis perpendicular to the climb direction -> he flips up and over the edge.
+        Vector3 axis = Vector3.Cross(Vector3.up, dir); // Horizontal axis perpendicular to the climb direction which is what allows us to flip over the edge    
 
         float degreesPerSecond = 180f / climbTime; // turn 180 deg
         float turned = 0f;
         while (turned < 180f)
         {
-            float step = Mathf.Min(degreesPerSecond * Time.deltaTime, 180f - turned);
+            float step = Mathf.Min(degreesPerSecond * Time.deltaTime, 180f - turned); //mathf.min prevents it from turning more than 180 deg
             transform.RotateAround(pivot, axis, step); // world-space rotation, doesn't affect input
             turned += step;
             yield return null;
@@ -124,7 +130,7 @@ public class PlayerController : MonoBehaviour
         isMoving = false;
     }
 
-    bool IsDeadly(Vector3 cellCenter) => Physics.CheckBox(cellCenter, Vector3.one * 0.45f, Quaternion.identity, KillMask, QueryTriggerInteraction.Collide);
+    bool IsDeadly(Vector3 cellCenter) => Physics.CheckBox(cellCenter, Vector3.one * 0.45f, Quaternion.identity, KillMask, QueryTriggerInteraction.Collide); //same as solid, but makes it so that we dont get blocked by killmasks, and trigger colliders arent ignored.
     bool IsSolid(Vector3 cellCenter) => Physics.CheckBox(cellCenter, Vector3.one * 0.45f, Quaternion.identity, obstacleMask &~KillMask.value, QueryTriggerInteraction.Ignore); // checks for blocks, what layer and ignore rotation and istrigger colliders,
 
    
@@ -152,6 +158,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (IsSolid(transform.position + Vector3.down))
+        {
+            AudioManager.instance.PlayOneShot(GetPlayerSound(GetSurfaceTag(transform.position + Vector3.down)).walk, transform.position);
+        }
+
         isMoving = false;
     }
 
@@ -168,6 +179,15 @@ public class PlayerController : MonoBehaviour
 
         nextDashTime = Time.time + dashCooldown; // only start the cooldown on a successful dash
         StartCoroutine(Slide(start + dir * dashBlocks, dashSpeed));
+        AudioManager.instance.PlayOneShot(PlayerDash, this.transform.position);
+    }
+
+    void TryPushPull(Vector3 dir)
+    {
+        Vector3 pos = transform.position;
+
+        if (GetMovableAt(pos + dir) != null) TryPush(dir); // initially was F and G key for push pull, but i realised i can just make it so that if player holds F, whatever direction they move in will move the block too
+        else if (GetMovableAt(pos - dir) != null) TryPull(dir);
     }
 
     void TryPush(Vector3 dir)
@@ -177,9 +197,11 @@ public class PlayerController : MonoBehaviour
         MovableBlocks block = GetMovableAt(pos + dir); // if the player holds F, but dont press the input key that follows the direction of where ur meant to push the block, return.
         if (block == null || block.IsBusy) return; // method doesnt get called also if theres no block detected, or its busy and already processing an input.
 
-        if (IsSolid(pos + dir * 2)) return;
+        if (IsSolid(pos + dir * 2)) return; //checks for 2 blocks ahead of player, as long as theres empty space there, push block
 
-        StartCoroutine(MoveWithBlock(pos + dir, block, pos + dir * 2)); 
+        StartCoroutine(MoveWithBlock(pos + dir, block, pos + dir * 2));
+
+        AudioManager.instance.PlayOneShot(GetMovableBlockSound(block.tag).push, transform.position);
     }
     void TryPull(Vector3 dir)
     {
@@ -191,12 +213,14 @@ public class PlayerController : MonoBehaviour
         if (IsSolid(pos + dir)) return;
 
         StartCoroutine(MoveWithBlock(pos + dir, block, pos));
+
+        AudioManager.instance.PlayOneShot(GetMovableBlockSound(block.tag).pull, transform.position); //initially used a if,else but realised an array would be more optimised and tidier as ill be adding more blocks like plant ltr on
     }
 
     IEnumerator MoveWithBlock(Vector3 playerTarget, MovableBlocks block, Vector3 blockTarget)
     {
         isMoving = true;
-        block.IsBusy = true;
+        block.IsBusy = true; //prevent any other inputs to be stacked
 
         while (transform.position != playerTarget)
         {
@@ -213,12 +237,14 @@ public class PlayerController : MonoBehaviour
 
     MovableBlocks GetMovableAt(Vector3 cellCenter)
     {
-        Collider[] hits = Physics.OverlapBox(cellCenter, Vector3.one * 0.45f, Quaternion.identity, movableMask, QueryTriggerInteraction.Ignore);
+        Collider[] hits = Physics.OverlapBox(cellCenter, Vector3.one * 0.45f, Quaternion.identity, movableMask, QueryTriggerInteraction.Ignore); //search for movable blocks
         return hits.Length > 0 ? hits[0].GetComponentInParent<MovableBlocks>() : null;
     }
     IEnumerator SinkAndDie()
     {
         isMoving = true;
+
+        AudioManager.instance.PlayOneShot(GetPlayerSound(GetDeadlyTag()).sink, transform.position);
 
         Vector3 start = transform.position;
         Vector3 end = start + Vector3.down * sinkDepth; //initalizing lerp
@@ -243,5 +269,47 @@ public class PlayerController : MonoBehaviour
             if (block != null && block.IsSinking) return true;
         }
         return false;
+    }
+
+    MovableBlockSound GetMovableBlockSound(string surfaceTag)
+    {
+        foreach (MovableBlockSound s in movableBlockSounds)
+            if (s.tag == surfaceTag) return s;
+        return null;
+    }
+
+    PlayerSound GetPlayerSound(string surfaceTag)
+    {
+        foreach (PlayerSound s in playerSounds)
+            if (s.tag == surfaceTag) return s;
+        return null;
+    }
+
+    string GetSurfaceTag(Vector3 cell) //for detecting floor tags so that diff sfx can be applied for different blocks
+    {
+        Collider[] hits = Physics.OverlapBox(cell, Vector3.one * 0.45f, Quaternion.identity, obstacleMask & ~KillMask.value, QueryTriggerInteraction.Ignore); // places an invisible box which detects and returns all colliders in it. this allows us to detect the specific tags of diff blocks
+        if (hits.Length > 0)
+        {
+            return hits[0].tag; //if a collider/block is detected, return us the tag and the first one that it has
+        }
+        else
+        {
+            return "Untagged"; //if theres nth, then its untagged
+        }
+    }
+    string GetDeadlyTag()
+    {
+        Collider[] hits = Physics.OverlapBox(transform.position, Vector3.one * 0.45f, Quaternion.identity, KillMask, QueryTriggerInteraction.Collide); //runs the check infront
+        if (hits.Length == 0)
+        {
+            hits = Physics.OverlapBox(transform.position + Vector3.down, Vector3.one * 0.45f, Quaternion.identity, KillMask, QueryTriggerInteraction.Collide); //runs the check below
+        }
+
+        if (hits.Length > 0)
+        {
+            return hits[0].tag; //same as the getsurfacetag but the KillMask detection is added.
+        }
+
+        return "Untagged";
     }
 }
