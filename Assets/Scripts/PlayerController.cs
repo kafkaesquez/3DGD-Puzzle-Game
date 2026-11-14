@@ -2,7 +2,7 @@ using FMODUnity;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static Unity.Collections.AllocatorManager;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int dashBlocks = 2; // blocks travelled: 2 blocks crossed + the landing cell
     [SerializeField] float dashSpeed = 12f; // blocks per second during the dash
     [SerializeField] float dashCooldown = 3f;
+    [SerializeField] Slider DashCooldownSlider;
 
     [Header("Push / Pull")]
     [SerializeField] LayerMask movableMask; // layermask detection for objects with the "movable" tag
@@ -40,6 +41,12 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player movement SFX")]
     [field: SerializeField] private EventReference PlayerDash;
+
+
+    void Awake()
+    {
+        DashCooldownSlider.gameObject.SetActive(false); // hidden until the first dash
+    }
 
     void Update()
     {
@@ -83,12 +90,12 @@ public class PlayerController : MonoBehaviour
         if (!IsSolid(ahead))
         {
             StartCoroutine(Slide(ahead, speed)); // nothing in the way: normal move
-            AudioManager.instance.PlayOneShot(GetPlayerSound(GetSurfaceTag(ahead + Vector3.down)).walk, transform.position); // detect below us as we're walkin
+            PlayWalkSound(ahead + Vector3.down); ; // detect below us as we're walkin
         }
         else if (!IsSolid(ahead + Vector3.up) && !IsBlockSinking(ahead))
         {
             StartCoroutine(Climb(dir)); // exactly 1 block tall, and there's room to flip over it and prevents climbing if the height infront is 2 blocks instead
-            AudioManager.instance.PlayOneShot(GetPlayerSound(GetSurfaceTag(ahead)).walk, transform.position); //detect infront of us as we're climbing
+            PlayWalkSound(ahead); //detect infront of us as we're climbing
         }  
     }
 
@@ -158,18 +165,17 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        isMoving = false;
+
         if (IsSolid(transform.position + Vector3.down))
         {
-            AudioManager.instance.PlayOneShot(GetPlayerSound(GetSurfaceTag(transform.position + Vector3.down)).walk, transform.position);
+            PlayWalkSound(transform.position + Vector3.down); //sfx when player lands on a block after falling from another place
         }
-
-        isMoving = false;
     }
 
     void TryDash(Vector3 dir)
     {
         if (Time.time < nextDashTime) return; // if still on cooldown, return
-
         Vector3 start = transform.position;
 
         for (int i = 1; i <= dashBlocks; i++) // not really necessary but works if we change the dash distance in the future. how it works is basically by loop, check for any solid blocks in the path of the dash. if so, cancel dash and return
@@ -178,8 +184,24 @@ public class PlayerController : MonoBehaviour
         }
 
         nextDashTime = Time.time + dashCooldown; // only start the cooldown on a successful dash
+        StartCoroutine(DashCooldownSliderRoutine());
         StartCoroutine(Slide(start + dir * dashBlocks, dashSpeed));
         AudioManager.instance.PlayOneShot(PlayerDash, this.transform.position);
+    }
+    IEnumerator DashCooldownSliderRoutine()
+    {
+        DashCooldownSlider.gameObject.SetActive(true);
+        DashCooldownSlider.value = 0f;
+
+        while (Time.time < nextDashTime)
+        {
+            float remaining = nextDashTime - Time.time;
+            DashCooldownSlider.value = 1f - (remaining / dashCooldown); // fills up as the cooldown runs out
+            yield return null;
+        }
+
+        DashCooldownSlider.value = 1f;
+        DashCooldownSlider.gameObject.SetActive(false);
     }
 
     void TryPushPull(Vector3 dir)
@@ -243,6 +265,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator SinkAndDie()
     {
         isMoving = true;
+        PlaySinkSound();
 
         AudioManager.instance.PlayOneShot(GetPlayerSound(GetDeadlyTag()).sink, transform.position);
 
@@ -312,4 +335,33 @@ public class PlayerController : MonoBehaviour
 
         return "Untagged";
     }
+    void PlayWalkSound(Vector3 cell) //initially i used audiomanager.instance.playoneshot( such such) on each courotine, but it caused certain bugs so grouping it up to make it tidier and easier to narrow down the fault
+    {
+        if (AudioManager.instance == null) return;
+
+        string surfaceTag = GetSurfaceTag(cell);
+        PlayerSound sound = GetPlayerSound(surfaceTag);
+        if (sound == null)
+        {
+            Debug.LogWarning($"No PlayerSound entry for tag '{surfaceTag}'", this); // tells you which tag is missing
+            return;
+        }
+
+        AudioManager.instance.PlayOneShot(sound.walk, transform.position);
+    }
+    void PlaySinkSound()
+    {
+        if (AudioManager.instance == null) return;
+
+        string deadlyTag = GetDeadlyTag();
+        PlayerSound sound = GetPlayerSound(deadlyTag);
+        if (sound == null)
+        {
+            Debug.LogWarning($"No PlayerSound entry for tag '{deadlyTag}'", this); //useful for detecting any bugs in the map in term of sfx, will removei n the future.
+            return;
+        }
+
+        AudioManager.instance.PlayOneShot(sound.sink, transform.position);
+    }
+
 }
