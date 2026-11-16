@@ -26,6 +26,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float dashCooldown = 3f;
     [SerializeField] Slider DashCooldownSlider;
 
+    [Header("Exit")]
+    [SerializeField] LayerMask exitMask; //layermask for the exit stage block
+
     [Header("Push / Pull")]
     [SerializeField] LayerMask movableMask; // layermask detection for objects with the "movable" tag
     [SerializeField] float pushSpeed = 2f; // speed of which we move the blocks
@@ -52,6 +55,17 @@ public class PlayerController : MonoBehaviour
     {
 
         if (isMoving) return; // ignore inputs mid-move
+
+        Collider[] exits = Physics.OverlapBox(transform.position, Vector3.one * 0.45f, Quaternion.identity, exitMask, QueryTriggerInteraction.Collide); //detect for exit stage block
+        if (exits.Length > 0)
+        {
+            ExitStage exit = exits[0].GetComponentInParent<ExitStage>();
+            if (exit != null)
+            {
+                exit.Load();
+                return;
+            }
+        }
 
 
         Vector3 below = transform.position + Vector3.down;
