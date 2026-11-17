@@ -1,5 +1,32 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9112188348178328271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/LavaSink
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SFX/LavaSink
+  Guid:
+    Data1: -1773549404
+    Data2: 1204041906
+    Data3: 91151274
+    Data4: -1071780659
+  Banks:
+  - {fileID: -7511502567362919281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-7511502567362919281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15,10 +42,10 @@ MonoBehaviour:
   Path: ../3DGD_FMODSTUDIO/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639301300975681923
+  lastModified: 639305203657911898
   FileSizes:
   - Name: Desktop
-    Value: 52992
+    Value: 87808
   Exists: 1
 --- !u!114 &-7201556004856974952
 MonoBehaviour:
@@ -62,7 +89,7 @@ MonoBehaviour:
   Path: ../3DGD_FMODSTUDIO/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639301216249957240
+  lastModified: 639305202212693908
   FileSizes:
   - Name: Desktop
     Value: 1074
@@ -264,10 +291,10 @@ MonoBehaviour:
   Path: ../3DGD_FMODSTUDIO/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639301216249972363
+  lastModified: 639305202212707300
   FileSizes:
   - Name: Desktop
-    Value: 1354
+    Value: 1484
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -298,13 +325,16 @@ MonoBehaviour:
   - {fileID: -2018886831273461647}
   - {fileID: -4569500686104168043}
   - {fileID: -4853335919922735429}
+  - {fileID: 7293239108480427815}
+  - {fileID: -9112188348178328271}
+  - {fileID: 7389493525215344954}
   EditorParameters: []
   MasterBanks:
   - {fileID: -5700836998329223856}
   StringsBanks:
   - {fileID: -1834082111938613941}
   cacheVersion: 131861
-  cacheTime: 639301300975681923
+  cacheTime: 639305203657911898
   SerializableEventsDict:
   - key: event:/SFX/PlayerDash
     index: 0
@@ -326,6 +356,12 @@ MonoBehaviour:
     index: 8
   - key: event:/SFX/WaterSink
     index: 9
+  - key: event:/SFX/LavaSinkStone
+    index: 10
+  - key: event:/SFX/LavaSink
+    index: 11
+  - key: event:/SFX/GoldCollected
+    index: 12
 --- !u!114 &986029757578237375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,6 +427,60 @@ MonoBehaviour:
     Data2: 1160924070
     Data3: 860046472
     Data4: 255876626
+  Banks:
+  - {fileID: -7511502567362919281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7293239108480427815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/LavaSinkStone
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SFX/LavaSinkStone
+  Guid:
+    Data1: 959933077
+    Data2: 1197796067
+    Data3: 1600399544
+    Data4: -2089553287
+  Banks:
+  - {fileID: -7511502567362919281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7389493525215344954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/GoldCollected
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SFX/GoldCollected
+  Guid:
+    Data1: 1282497216
+    Data2: 1225388172
+    Data3: -2146539088
+    Data4: -8954650
   Banks:
   - {fileID: -7511502567362919281}
   IsStream: 0

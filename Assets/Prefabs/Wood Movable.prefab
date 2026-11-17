@@ -145,3 +145,11 @@ MonoBehaviour:
         Data3: 625729197
         Data4: -965272215
       Path: event:/SFX/WaterSink
+  - tag: Lava
+    sink:
+      Guid:
+        Data1: -1773549404
+        Data2: 1204041906
+        Data3: 91151274
+        Data4: -1071780659
+      Path: event:/SFX/LavaSink

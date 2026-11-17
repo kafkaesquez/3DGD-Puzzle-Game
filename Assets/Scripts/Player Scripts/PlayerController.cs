@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour
     [Header("Exit")]
     [SerializeField] LayerMask exitMask; //layermask for the exit stage block
 
+    [Header("GoldCollectible")]
+    [SerializeField] LayerMask goldCollectibleMask;
+
     [Header("Push / Pull")]
     [SerializeField] LayerMask movableMask; // layermask detection for objects with the "movable" tag
     [SerializeField] float pushSpeed = 2f; // speed of which we move the blocks
@@ -41,6 +44,7 @@ public class PlayerController : MonoBehaviour
     [Header("Block Sounds")]
     [SerializeField] MovableBlockSound[] movableBlockSounds; // array so that it doesnt get messy when adding sfx interactions with future blocks like the plant or more
     [SerializeField] PlayerSound[] playerSounds; //sfx related to the player, so that its tidier instead of using blockSounds for everythingand i have to add redundant sfx to the array
+    [field: SerializeField] private EventReference GoldCollected;
 
     [Header("Player movement SFX")]
     [field: SerializeField] private EventReference PlayerDash;
@@ -49,19 +53,22 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         DashCooldownSlider.gameObject.SetActive(false); // hidden until the first dash
+        LevelStarData.ResetAttempt(); //refresh the level data (collectible) when level is reloaded
     }
 
     void Update()
     {
+        CheckGoldCollect();
 
         if (isMoving) return; // ignore inputs mid-move
 
-        Collider[] exits = Physics.OverlapBox(transform.position, Vector3.one * 0.45f, Quaternion.identity, exitMask, QueryTriggerInteraction.Collide); //detect for exit stage block
+        Collider[] exits = Physics.OverlapBox(transform.position, Vector3.one * 0.45f, Quaternion.identity, exitMask, QueryTriggerInteraction.Collide); //detect for exit stage block   
         if (exits.Length > 0)
         {
             ExitStage exit = exits[0].GetComponentInParent<ExitStage>();
             if (exit != null)
             {
+                LevelStarData.SaveLevel(SceneManager.GetActiveScene().name);
                 exit.Load();
                 return;
             }
@@ -376,6 +383,19 @@ public class PlayerController : MonoBehaviour
         }
 
         AudioManager.instance.PlayOneShot(sound.sink, transform.position);
+    }
+
+    void CheckGoldCollect()
+    {
+        Collider[] golds = Physics.OverlapBox(transform.position, Vector3.one * 0.3f, Quaternion.identity, goldCollectibleMask, QueryTriggerInteraction.Collide); //check for gold collectible 
+        foreach (Collider gold in golds)
+        {
+            LevelStarData.CollectGold();
+
+            if (AudioManager.instance != null) AudioManager.instance.PlayOneShot(GoldCollected, gold.transform.position);
+
+            Destroy(gold.gameObject);
+        }
     }
 
 }

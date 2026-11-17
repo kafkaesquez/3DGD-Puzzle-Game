@@ -119,6 +119,9 @@ MonoBehaviour:
   dashSpeed: 12
   dashCooldown: 3
   DashCooldownSlider: {fileID: 0}
+  exitMask:
+    serializedVersion: 2
+    m_Bits: 0
   movableMask:
     serializedVersion: 2
     m_Bits: 64
@@ -230,6 +233,21 @@ MonoBehaviour:
         Data3: 625729197
         Data4: -965272215
       Path: event:/SFX/WaterSink
+  - tag: Lava
+    walk:
+      Guid:
+        Data1: -1773549404
+        Data2: 1204041906
+        Data3: 91151274
+        Data4: -1071780659
+      Path: event:/SFX/LavaSink
+    sink:
+      Guid:
+        Data1: -1773549404
+        Data2: 1204041906
+        Data3: 91151274
+        Data4: -1071780659
+      Path: event:/SFX/LavaSink
   PlayerDash:
     Guid:
       Data1: -1401049424
