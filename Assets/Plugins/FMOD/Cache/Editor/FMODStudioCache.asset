@@ -42,10 +42,10 @@ MonoBehaviour:
   Path: ../3DGD_FMODSTUDIO/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639305203657911898
+  lastModified: 639306374718846494
   FileSizes:
   - Name: Desktop
-    Value: 87808
+    Value: 95200
   Exists: 1
 --- !u!114 &-7201556004856974952
 MonoBehaviour:
@@ -89,11 +89,38 @@ MonoBehaviour:
   Path: ../3DGD_FMODSTUDIO/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639305202212693908
+  lastModified: 639306374717329665
   FileSizes:
   - Name: Desktop
     Value: 1074
   Exists: 1
+--- !u!114 &-5239557496072921540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Barkie
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SFX/Barkie
+  Guid:
+    Data1: -47770718
+    Data2: 1187997818
+    Data3: 258625411
+    Data4: 1465957362
+  Banks:
+  - {fileID: -7511502567362919281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-4932443763508903760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,10 +318,10 @@ MonoBehaviour:
   Path: ../3DGD_FMODSTUDIO/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639305202212707300
+  lastModified: 639306374717339718
   FileSizes:
   - Name: Desktop
-    Value: 1484
+    Value: 1532
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -328,13 +355,14 @@ MonoBehaviour:
   - {fileID: 7293239108480427815}
   - {fileID: -9112188348178328271}
   - {fileID: 7389493525215344954}
+  - {fileID: -5239557496072921540}
   EditorParameters: []
   MasterBanks:
   - {fileID: -5700836998329223856}
   StringsBanks:
   - {fileID: -1834082111938613941}
   cacheVersion: 131861
-  cacheTime: 639305203657911898
+  cacheTime: 639306374718846494
   SerializableEventsDict:
   - key: event:/SFX/PlayerDash
     index: 0
@@ -362,6 +390,8 @@ MonoBehaviour:
     index: 11
   - key: event:/SFX/GoldCollected
     index: 12
+  - key: event:/SFX/Barkie
+    index: 13
 --- !u!114 &986029757578237375
 MonoBehaviour:
   m_ObjectHideFlags: 0

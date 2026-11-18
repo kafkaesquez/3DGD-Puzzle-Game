@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468f5f4b9a8d8e14db26d1c04b298c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  speed: 2.5
+  speed: 5
   climbTime: 0.5
   obstacleMask:
     serializedVersion: 2
@@ -117,15 +117,18 @@ MonoBehaviour:
   killY: -50
   dashBlocks: 2
   dashSpeed: 12
-  dashCooldown: 3
+  dashCooldown: 1.5
   DashCooldownSlider: {fileID: 0}
   exitMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
+  goldCollectibleMask:
+    serializedVersion: 2
+    m_Bits: 2048
   movableMask:
     serializedVersion: 2
     m_Bits: 64
-  pushSpeed: 2
+  pushSpeed: 3.5
   movableBlockSounds:
   - tag: Wood
     push:
@@ -248,6 +251,13 @@ MonoBehaviour:
         Data3: 91151274
         Data4: -1071780659
       Path: event:/SFX/LavaSink
+  GoldCollected:
+    Guid:
+      Data1: 1282497216
+      Data2: 1225388172
+      Data3: -2146539088
+      Data4: -8954650
+    Path: event:/SFX/GoldCollected
   PlayerDash:
     Guid:
       Data1: -1401049424

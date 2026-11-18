@@ -11,6 +11,7 @@ TagManager:
   - Water
   - Lava
   - Gold Collectible
+  - Doggie
   layers:
   - Default
   - TransparentFX
