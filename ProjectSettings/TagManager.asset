@@ -12,6 +12,7 @@ TagManager:
   - Lava
   - Gold Collectible
   - Doggie
+  - Platform
   layers:
   - Default
   - TransparentFX
@@ -25,8 +26,8 @@ TagManager:
   - 
   - OutlineExit
   - GoldCollectible
-  - Test
-  - 
+  - LeverBlock
+  - PressurePlate
   - 
   - 
   - 

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7497622220413616309}
   - component: {fileID: 623858679651207043}
   - component: {fileID: 7032709910917353737}
+  - component: {fileID: 1397204368201510908}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -108,13 +109,13 @@ MonoBehaviour:
   climbTime: 0.5
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 4168
   KillMask:
     serializedVersion: 2
     m_Bits: 128
   gravity: 25
   maxFallSpeed: 20
-  killY: -50
+  killY: -20
   dashBlocks: 2
   dashSpeed: 12
   dashCooldown: 1.5
@@ -251,6 +252,21 @@ MonoBehaviour:
         Data3: 91151274
         Data4: -1071780659
       Path: event:/SFX/LavaSink
+  - tag: Platform
+    walk:
+      Guid:
+        Data1: -713081906
+        Data2: 1273878818
+        Data3: 190335128
+        Data4: 1783450859
+      Path: event:/SFX/Blocks/PlatformWalk
+    sink:
+      Guid:
+        Data1: -713081906
+        Data2: 1273878818
+        Data3: 190335128
+        Data4: 1783450859
+      Path: event:/SFX/Blocks/PlatformWalk
   GoldCollected:
     Guid:
       Data1: 1282497216
@@ -286,3 +302,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1397204368201510908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882181880432318172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c11f0ee13832e64c848de1d9c48be74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LeverInteraction
+  LeverBlock:
+    serializedVersion: 2
+    m_Bits: 4096
+  Platform: {fileID: 0}
+  LeverClick:
+    Guid:
+      Data1: 1670398819
+      Data2: 1081257871
+      Data3: -1376579409
+      Data4: 1718648760
+    Path: event:/SFX/Blocks/LeverInteraction

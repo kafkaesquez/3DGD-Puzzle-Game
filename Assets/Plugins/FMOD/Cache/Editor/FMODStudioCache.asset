@@ -27,6 +27,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-9059086938304376160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Blocks/LeverInteraction
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SFX/Blocks/LeverInteraction
+  Guid:
+    Data1: 1670398819
+    Data2: 1081257871
+    Data3: -1376579409
+    Data4: 1718648760
+  Banks:
+  - {fileID: -7511502567362919281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-7511502567362919281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42,10 +69,10 @@ MonoBehaviour:
   Path: ../3DGD_FMODSTUDIO/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639306374718846494
+  lastModified: 639306844948358125
   FileSizes:
   - Name: Desktop
-    Value: 95200
+    Value: 112608
   Exists: 1
 --- !u!114 &-7201556004856974952
 MonoBehaviour:
@@ -89,7 +116,7 @@ MonoBehaviour:
   Path: ../3DGD_FMODSTUDIO/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639306374717329665
+  lastModified: 639306843721722117
   FileSizes:
   - Name: Desktop
     Value: 1074
@@ -276,6 +303,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-2084157186603764947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Blocks/PlatformWalk
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SFX/Blocks/PlatformWalk
+  Guid:
+    Data1: -713081906
+    Data2: 1273878818
+    Data3: 190335128
+    Data4: 1783450859
+  Banks:
+  - {fileID: -7511502567362919281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-2018886831273461647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,10 +372,10 @@ MonoBehaviour:
   Path: ../3DGD_FMODSTUDIO/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639306374717339718
+  lastModified: 639306843721722117
   FileSizes:
   - Name: Desktop
-    Value: 1532
+    Value: 1622
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -356,13 +410,15 @@ MonoBehaviour:
   - {fileID: -9112188348178328271}
   - {fileID: 7389493525215344954}
   - {fileID: -5239557496072921540}
+  - {fileID: -9059086938304376160}
+  - {fileID: -2084157186603764947}
   EditorParameters: []
   MasterBanks:
   - {fileID: -5700836998329223856}
   StringsBanks:
   - {fileID: -1834082111938613941}
   cacheVersion: 131861
-  cacheTime: 639306374718846494
+  cacheTime: 639306844948358125
   SerializableEventsDict:
   - key: event:/SFX/PlayerDash
     index: 0
@@ -392,6 +448,10 @@ MonoBehaviour:
     index: 12
   - key: event:/SFX/Barkie
     index: 13
+  - key: event:/SFX/Blocks/LeverInteraction
+    index: 14
+  - key: event:/SFX/Blocks/PlatformWalk
+    index: 15
 --- !u!114 &986029757578237375
 MonoBehaviour:
   m_ObjectHideFlags: 0

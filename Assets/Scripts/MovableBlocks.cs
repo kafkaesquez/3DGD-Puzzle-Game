@@ -47,12 +47,14 @@ public class MovableBlocks : MonoBehaviour
         }
     }
 
+    bool IsLiquid(Vector3 cellCenter) => IsFillMask(cellCenter) || IsKillMask(cellCenter); // cellcenter means the cell position that we wanna check of the detected layermask, and checks both water/lava vice versa depending on the movable block tag
+
     IEnumerator Fall()
     {
         IsBusy = true;
         float velocity = 0f;
 
-        while (!IsSolid(transform.position + Vector3.down))
+        while (!IsSolid(transform.position + Vector3.down) && !IsLiquid(transform.position + Vector3.down)) //there was this bug where if i pushed a stone from a height of 2 blocks down onto lava, it sinks below the position of the lava block. the reasoning was the fall method didnt account and stop the block from falling before hitting the lava.
         {
             Vector3 target = transform.position + Vector3.down;
 

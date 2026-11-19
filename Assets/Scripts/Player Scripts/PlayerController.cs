@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
 
         if (dir != Vector3.zero)
         {
-            if (Input.GetKey(KeyCode.F)) TryPushPull(dir);
+            if (Input.GetKey(KeyCode.P)) TryPushPull(dir); //initially this was F key, but after playtesting, i got good feedback which said it makes more sense to let the player either use both hands, or dont occupy the fingers positioned at WASD.
             else if (Input.GetKey(KeyCode.Space)) TryDash(dir);
             else TryMove(dir);
         }
