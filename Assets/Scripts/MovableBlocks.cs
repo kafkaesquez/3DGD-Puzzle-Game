@@ -19,9 +19,14 @@ public class MovableBlocks : MonoBehaviour
     [Header("Block Sounds")]
     [SerializeField] SinkingSound[] sinkingSounds; // array so that it doesnt get messy when adding sfx interactions with future blocks like the plant or more
 
+    RotatingPlatform ridingPlatform; // new property as rn moving blocks dont stay on platforms as they rotate
+
     void Update()
     {
+        if (ridingPlatform != null && ridingPlatform.IsRotating) return;
         if (IsBusy) return;
+
+        UpdateRide();
 
         Vector3 pos = transform.position;
 
@@ -153,5 +158,39 @@ public class MovableBlocks : MonoBehaviour
         }
 
         return "Untagged";
+    }
+
+    string GetPlatformTag()
+    {
+        Collider[] hits = Physics.OverlapBox(transform.position, Vector3.down * 0.45f, Quaternion.identity, obstacleMask, QueryTriggerInteraction.Collide); //checks below for the tag of the block if its a platform
+        if (hits.Length == 0)
+
+        if (hits.Length > 0)
+        {
+            return hits[0].tag; 
+        }
+
+        return "Untagged";
+    }
+
+    void UpdateRide()
+    {
+        RotatingPlatform platformBelow = GetPlatformBelow();
+        if (platformBelow == ridingPlatform) return;
+
+        ridingPlatform = platformBelow;
+        transform.SetParent(ridingPlatform != null ? ridingPlatform.transform : null, true); // true keeps its world position
+    }
+
+    RotatingPlatform GetPlatformBelow()
+    {
+        Collider[] hits = Physics.OverlapBox(transform.position + Vector3.down, Vector3.one * 0.45f, Quaternion.identity, obstacleMask.value, QueryTriggerInteraction.Ignore); //ignore the kill masks
+
+        foreach (Collider c in hits)
+        {
+            RotatingPlatform p = c.GetComponentInParent<RotatingPlatform>(); //parent the movable block to the platform, so it moves with the platform/
+            if (p != null) return p;
+        }
+        return null;
     }
 }

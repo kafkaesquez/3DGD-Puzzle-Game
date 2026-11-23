@@ -8,10 +8,14 @@ public class RotatingPlatform : MonoBehaviour
     [SerializeField] float angle = 90f; // degrees per activation via lever or a pressure plate
     [SerializeField] float duration = 0.5f; // seconds per rotation
 
+    [Header("Mode")]
+    [SerializeField] bool toggleMode = false;
+
     public bool IsRotating { get; private set; }
 
     Quaternion startRotation; // remembers the initial rotation values of the object at the start
-    int timesRotated; 
+    float currentAngle;
+    bool atTarget; // toggle mode only: true while rotated out
 
     void Awake()
     {
@@ -22,19 +26,29 @@ public class RotatingPlatform : MonoBehaviour
     public void Rotate()
     {
         if (IsRotating) return; // ignore multiple inputs mid-rotation
-        StartCoroutine(RotateRoutine());
+
+        float toAngle;
+
+        if (toggleMode)
+        {
+            atTarget = !atTarget;
+            toAngle = atTarget ? angle : 0f; // out to angle, or back to the start
+        }
+        else
+        {
+            toAngle = currentAngle + angle;  // original behaviour: keeps stacking
+        }
+
+        StartCoroutine(RotateRoutine(toAngle));
     }
 
-    IEnumerator RotateRoutine()
+    IEnumerator RotateRoutine(float toAngle)
     {
-        IsRotating = true; 
+        IsRotating = true;
 
-        float fromAngle = angle * timesRotated; // where the current platform's angle is at, after set rotations
-        timesRotated++; // +1 rotation
-        float toAngle = angle * timesRotated; // new angle to move the platform to, compared to current platform's angle, after set rotations
-
-        float time = 0f;
-        float length = Mathf.Max(duration, 0.01f); //how we'll calculate the duration of which the platform will rotate for
+        float fromAngle = currentAngle; // where the current platform's angle is at, after set rotations
+        float time = 0f; // +1 rotation
+        float length = Mathf.Max(duration, 0.01f);  //how we'll calculate the duration of which the platform will rotate for
 
         while (time < length)
         {
@@ -46,6 +60,7 @@ public class RotatingPlatform : MonoBehaviour
         }
 
         transform.rotation = Quaternion.AngleAxis(toAngle, worldAxis) * startRotation; //snaps to the world grid just in case it goes out of space
+        currentAngle = toAngle;
         IsRotating = false;
     }
 }

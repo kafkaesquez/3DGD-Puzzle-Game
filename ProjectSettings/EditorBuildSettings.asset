@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Boot.unity
+    guid: 8245d00f50262ad4dbb4c697fe68e922
+  - enabled: 1
+    path: Assets/Scenes/IntroCutScene.unity
+    guid: 14c1039e5fe48724b8cb8f502399f6e6
+  - enabled: 1
+    path: Assets/Scenes/MainMenuScreen.unity
+    guid: a77770dfc5a0b0043a16e1bc29709ea0
+  - enabled: 1
     path: Assets/Scenes/ForestZone_Level1.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
@@ -23,6 +32,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CaveZone_Level1.unity
     guid: d253e3ed0ff8d964c9c8c335564ef550
+  - enabled: 1
+    path: Assets/Scenes/CaveZone_Level2.unity
+    guid: bdf362b6e77fd6c4aa0e002bbd2fd381
+  - enabled: 1
+    path: Assets/Scenes/DungeonZone_Level1.unity
+    guid: b9c607c01f0c1bc4bb99601a37f5465a
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
