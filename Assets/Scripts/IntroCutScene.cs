@@ -1,11 +1,11 @@
 using UnityEngine;
-using UnityEngine.Playables;
+using UnityEngine.Video;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class IntroCutscene : MonoBehaviour
 {
-    [SerializeField] PlayableDirector director; //the gameobject with the PlayableDirector
+    [SerializeField] VideoPlayer video;
     [SerializeField] string nextScene = "MainMenuScreen";
 
     [Header("Skip")]
@@ -19,12 +19,17 @@ public class IntroCutscene : MonoBehaviour
 
     void Start()
     {
-        // start loading the menu now, but don't switch to it yet
-        loadOp = SceneManager.LoadSceneAsync(nextScene); //returns AsyncOperation, and compared to LoadScene, it doenst freeze the sceene
+        loadOp = SceneManager.LoadSceneAsync(nextScene); //load the menu in the background but dont switch yet
         loadOp.allowSceneActivation = false;
 
-        director.stopped += OnDirectorStopped; // when the director (part of the timeline plugin) stops, call OnDirectorStopped
-        director.Play(); // initiate cutscene
+        video.loopPointReached += OnVideoFinished; // is called when the video reaches the end
+        video.prepareCompleted += OnVideoPrepared; // is called when the video is ready
+        video.Prepare(); //wait for it to be ready, then call the method andp lay the video
+    }
+
+    void OnVideoPrepared(VideoPlayer vp)
+    {
+        vp.Play();
     }
 
     void Update()
@@ -37,26 +42,22 @@ public class IntroCutscene : MonoBehaviour
             ? heldTime + Time.unscaledDeltaTime // ? : is a compact vers of "if else" and this means as long as spacebar is being pressed, heldtime adds secs with time.unscaleddeltatime and if let go, reset back to 0
             : 0f; //unscaled delta time is independent counter from the last frame to the current, and isnt affected by stuff like Time.timescale slowmos
 
-        if (skipRing) skipRing.fillAmount = heldTime / holdToSkip; // reference for the UI visual
-        if (heldTime >= holdToSkip) Skip(); //once heldTime = to like 1 second, skip the cutscene
+        if (skipRing) skipRing.fillAmount = heldTime / holdToSkip; // reference for the UI visual, and only shows up if fillAmount has value
+        if (heldTime >= holdToSkip) Finish(); //once heldTime = to like 1 second, skip the cutscene
     }
 
-    void Skip()
-    {
-        // if the cutscene led into gameplay in the SAME scene, you'd first do
-        // director.time = director.duration; director.Evaluate();
-        // so everything lands in its final pose. we're changing scene, so just stop.
-        director.Stop();
-    }
+    void OnVideoFinished(VideoPlayer vp) => Finish();
 
-    void OnDirectorStopped(PlayableDirector _)
+    void Finish()
     {
         if (finished) return;
         finished = true;
 
+        video.Stop();
+
         PlayerPrefs.SetInt(BootLoader.SeenIntroKey, 1); //saves the data that they've seen the intro, same concept with the gold collectible and then Bootloader helps to send the player straight to the main menu instead
         PlayerPrefs.Save();
 
-        loadOp.allowSceneActivation = true; // swap to the preloaded menu, so that theres no freezes in-between n stuff
+        loadOp.allowSceneActivation = true; // swap to the preloaded menu
     }
 }

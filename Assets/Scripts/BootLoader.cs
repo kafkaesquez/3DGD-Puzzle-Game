@@ -6,7 +6,7 @@ public class BootLoader : MonoBehaviour
     public const string SeenIntroKey = "HasSeenIntro";
 
     [SerializeField] string introScene = "IntroCutscene";
-    [SerializeField] string menuScene = "MainMenu";
+    [SerializeField] string menuScene = "MainMenuScreen";
 
     void Start()
     {
