@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 623858679651207043}
   - component: {fileID: 7032709910917353737}
   - component: {fileID: 1397204368201510908}
+  - component: {fileID: 5389266261935002849}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -123,6 +124,9 @@ MonoBehaviour:
   exitMask:
     serializedVersion: 2
     m_Bits: 1024
+  paintingMask:
+    serializedVersion: 2
+    m_Bits: 131072
   goldCollectibleMask:
     serializedVersion: 2
     m_Bits: 2048
@@ -267,6 +271,21 @@ MonoBehaviour:
         Data3: 190335128
         Data4: 1783450859
       Path: event:/SFX/Blocks/PlatformWalk
+  - tag: GalleryFloor
+    walk:
+      Guid:
+        Data1: 1511750296
+        Data2: 1335307878
+        Data3: -1423097431
+        Data4: 1125977062
+      Path: event:/SFX/Blocks/GalleryFloorWalk
+    sink:
+      Guid:
+        Data1: 1511750296
+        Data2: 1335307878
+        Data3: -1423097431
+        Data4: 1125977062
+      Path: event:/SFX/Blocks/GalleryFloorWalk
   GoldCollected:
     Guid:
       Data1: 1282497216
@@ -281,6 +300,20 @@ MonoBehaviour:
       Data3: 2130040716
       Data4: 819108928
     Path: event:/SFX/PlayerDash
+  startCam: {fileID: 0}
+  doorCam: {fileID: 0}
+  livePriority: 20
+  idlePriority: 0
+  DoorwayMask:
+    serializedVersion: 2
+    m_Bits: 32768
+  NPCMask:
+    serializedVersion: 2
+    m_Bits: 65536
+  npcAnimator: {fileID: 0}
+  npcDetectHalfExtents: {x: 1.45, y: 0.45, z: 1.45}
+  npcTrigger: RunToPainting
+  levelCompletePanel: {fileID: 0}
 --- !u!65 &7032709910917353737
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -325,3 +358,18 @@ MonoBehaviour:
       Data3: -1376579409
       Data4: 1718648760
     Path: event:/SFX/Blocks/LeverInteraction
+--- !u!114 &5389266261935002849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882181880432318172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d46ab46564108884e9ca7846dfa617a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LeaveGameDetector
+  LeaveGameMask:
+    serializedVersion: 2
+    m_Bits: 16384

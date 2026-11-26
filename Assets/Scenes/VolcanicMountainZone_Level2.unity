@@ -10440,9 +10440,17 @@ PrefabInstance:
       value: ExitBlock
       objectReference: {fileID: 0}
     - target: {fileID: 7538102602118263650, guid: 4239fce0ad94c6b48a13058411efd35b, type: 3}
+      propertyPath: timer
+      value: 
+      objectReference: {fileID: 1226582813}
+    - target: {fileID: 7538102602118263650, guid: 4239fce0ad94c6b48a13058411efd35b, type: 3}
       propertyPath: sceneName
       value: VolcanicMountainZone_Level3
       objectReference: {fileID: 0}
+    - target: {fileID: 7538102602118263650, guid: 4239fce0ad94c6b48a13058411efd35b, type: 3}
+      propertyPath: levelCompletePanel
+      value: 
+      objectReference: {fileID: 1057504922}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11902,6 +11910,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c4bdde2043d37948bff4db75a9fe97f, type: 3}
+--- !u!1 &1057504922 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7013281731457881682, guid: 1e4e24af89494e44bb3e717078c7f217, type: 3}
+  m_PrefabInstance: {fileID: 1981195448}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1059901258
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14546,6 +14559,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7782636668850210331, guid: 5473001e03cddee42842c91b7d5682e4, type: 3}
   m_PrefabInstance: {fileID: 1172597751}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1226582813 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3810567686449427189, guid: 1e4e24af89494e44bb3e717078c7f217, type: 3}
+  m_PrefabInstance: {fileID: 1981195448}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4303abbad3794e1419e9b62db6545c7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Timer
 --- !u!1001 &1230592650
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20112,74 +20136,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 212810577084286050, guid: 1ac3628da42135b409b6925955ee9b08, type: 3}
   m_PrefabInstance: {fileID: 2012847307}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1609940267
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1609940270}
-  - component: {fileID: 1609940269}
-  - component: {fileID: 1609940268}
-  m_Layer: 0
-  m_Name: EventSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1609940268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1609940267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.StandaloneInputModule
-  m_SendPointerHoverToParent: 1
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
---- !u!114 &1609940269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1609940267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventSystem
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 10
---- !u!4 &1609940270
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1609940267}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1611272704
 GameObject:
   m_ObjectHideFlags: 0
@@ -21764,6 +21720,54 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5473001e03cddee42842c91b7d5682e4, type: 3}
+--- !u!1 &1763093773
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1763093775}
+  - component: {fileID: 1763093774}
+  m_Layer: 0
+  m_Name: ZoneParameter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1763093774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763093773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0e04e2572f9a940a47465f6f3c2f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioGlobalParameterTrigger
+  CollisionTag: 
+  Parameter: ZoneParameters
+  TriggerEvent: 1
+  Value: 1
+--- !u!4 &1763093775
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763093773}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.69374, y: 5.65123, z: -14.882}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1765217181
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23995,6 +23999,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1643674311753490251, guid: 1e4e24af89494e44bb3e717078c7f217, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2605782173335313039, guid: 1e4e24af89494e44bb3e717078c7f217, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.305
@@ -24002,6 +24010,10 @@ PrefabInstance:
     - target: {fileID: 2605782173335313039, guid: 1e4e24af89494e44bb3e717078c7f217, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4304822734248561365, guid: 1e4e24af89494e44bb3e717078c7f217, type: 3}
+      propertyPath: sceneName
+      value: VolcanicMountainZone_Level3
       objectReference: {fileID: 0}
     - target: {fileID: 6079324834265700028, guid: 1e4e24af89494e44bb3e717078c7f217, type: 3}
       propertyPath: m_Pivot.x
@@ -26132,6 +26144,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1182358929}
     - target: {fileID: 623858679651207043, guid: 5ce79ff0689df084c89e077029132eb0, type: 3}
+      propertyPath: levelCompletePanel
+      value: 
+      objectReference: {fileID: 1057504922}
+    - target: {fileID: 623858679651207043, guid: 5ce79ff0689df084c89e077029132eb0, type: 3}
       propertyPath: playerSounds.Array.size
       value: 6
       objectReference: {fileID: 0}
@@ -26182,6 +26198,10 @@ PrefabInstance:
     - target: {fileID: 1882181880432318172, guid: 5ce79ff0689df084c89e077029132eb0, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882181880432318172, guid: 5ce79ff0689df084c89e077029132eb0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1882181880432318172, guid: 5ce79ff0689df084c89e077029132eb0, type: 3}
       propertyPath: m_TagString
@@ -26299,7 +26319,6 @@ SceneRoots:
   - {fileID: 7908579907348077801}
   - {fileID: 2011450712}
   - {fileID: 8888894138596112744}
-  - {fileID: 1609940270}
   - {fileID: 1716201940}
   - {fileID: 551047081}
   - {fileID: 1457942369}
@@ -26309,3 +26328,4 @@ SceneRoots:
   - {fileID: 956613876}
   - {fileID: 866710993}
   - {fileID: 1981195448}
+  - {fileID: 1763093775}

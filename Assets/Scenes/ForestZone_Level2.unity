@@ -16466,6 +16466,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4304822734248561365, guid: 1e4e24af89494e44bb3e717078c7f217, type: 3}
+      propertyPath: sceneName
+      value: VolcanicMountainZone_Level1
+      objectReference: {fileID: 0}
     - target: {fileID: 6079324834265700028, guid: 1e4e24af89494e44bb3e717078c7f217, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -16546,11 +16550,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6593309429325989282, guid: 1e4e24af89494e44bb3e717078c7f217, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1713879495}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e4e24af89494e44bb3e717078c7f217, type: 3}
+--- !u!1 &1347793359 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7013281731457881682, guid: 1e4e24af89494e44bb3e717078c7f217, type: 3}
+  m_PrefabInstance: {fileID: 1347793358}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1347793360 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3810567686449427189, guid: 1e4e24af89494e44bb3e717078c7f217, type: 3}
+  m_PrefabInstance: {fileID: 1347793358}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4303abbad3794e1419e9b62db6545c7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Timer
 --- !u!1 &1348786673
 GameObject:
   m_ObjectHideFlags: 0
@@ -26249,6 +26273,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 508641964547938510, guid: 79ef40f9525c8514f9e2601186ae4e1d, type: 3}
   m_PrefabInstance: {fileID: 2115782451}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2125629847
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2125629849}
+  - component: {fileID: 2125629848}
+  m_Layer: 0
+  m_Name: ZoneParameter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2125629848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125629847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0e04e2572f9a940a47465f6f3c2f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioGlobalParameterTrigger
+  CollisionTag: 
+  Parameter: ZoneParameters
+  TriggerEvent: 1
+  Value: 0
+--- !u!4 &2125629849
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125629847}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.69374, y: 5.65123, z: -14.882}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2127027046
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26753,6 +26825,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExitBlock
       objectReference: {fileID: 0}
+    - target: {fileID: 7538102602118263650, guid: 4239fce0ad94c6b48a13058411efd35b, type: 3}
+      propertyPath: timer
+      value: 
+      objectReference: {fileID: 1347793360}
+    - target: {fileID: 7538102602118263650, guid: 4239fce0ad94c6b48a13058411efd35b, type: 3}
+      propertyPath: levelCompletePanel
+      value: 
+      objectReference: {fileID: 1347793359}
+    - target: {fileID: 7538102602118263650, guid: 4239fce0ad94c6b48a13058411efd35b, type: 3}
+      propertyPath: LevelCompleteSFX.Path
+      value: event:/SFX/LevelCompleteSfx
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538102602118263650, guid: 4239fce0ad94c6b48a13058411efd35b, type: 3}
+      propertyPath: LevelCompleteSFX.Guid.Data1
+      value: -878857687
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538102602118263650, guid: 4239fce0ad94c6b48a13058411efd35b, type: 3}
+      propertyPath: LevelCompleteSFX.Guid.Data2
+      value: 1074621590
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538102602118263650, guid: 4239fce0ad94c6b48a13058411efd35b, type: 3}
+      propertyPath: LevelCompleteSFX.Guid.Data3
+      value: 736501175
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538102602118263650, guid: 4239fce0ad94c6b48a13058411efd35b, type: 3}
+      propertyPath: LevelCompleteSFX.Guid.Data4
+      value: -2074528665
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -26779,6 +26879,10 @@ PrefabInstance:
       value: event:/SFX/GoldCollected
       objectReference: {fileID: 0}
     - target: {fileID: 623858679651207043, guid: 5ce79ff0689df084c89e077029132eb0, type: 3}
+      propertyPath: levelCompletePanel
+      value: 
+      objectReference: {fileID: 1347793359}
+    - target: {fileID: 623858679651207043, guid: 5ce79ff0689df084c89e077029132eb0, type: 3}
       propertyPath: GoldCollected.Guid.Data1
       value: 1282497216
       objectReference: {fileID: 0}
@@ -26801,6 +26905,10 @@ PrefabInstance:
     - target: {fileID: 1882181880432318172, guid: 5ce79ff0689df084c89e077029132eb0, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882181880432318172, guid: 5ce79ff0689df084c89e077029132eb0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1882181880432318172, guid: 5ce79ff0689df084c89e077029132eb0, type: 3}
       propertyPath: m_TagString
@@ -26982,3 +27090,4 @@ SceneRoots:
   - {fileID: 5412823811673324178}
   - {fileID: 8798526240001223997}
   - {fileID: 1347793358}
+  - {fileID: 2125629849}

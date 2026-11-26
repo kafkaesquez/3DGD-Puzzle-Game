@@ -13,6 +13,7 @@ TagManager:
   - Gold Collectible
   - Doggie
   - Platform
+  - GalleryFloor
   layers:
   - Default
   - TransparentFX
@@ -28,10 +29,10 @@ TagManager:
   - GoldCollectible
   - LeverBlock
   - PressurePlate
-  - 
-  - 
-  - 
-  - 
+  - LeaveGame
+  - Doorway
+  - NPC
+  - painting
   - 
   - 
   - 

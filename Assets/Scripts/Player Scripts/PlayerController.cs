@@ -1,3 +1,4 @@
+using Cinemachine;
 using FMODUnity;
 using System.Collections;
 using UnityEngine;
@@ -27,7 +28,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Slider DashCooldownSlider;
 
     [Header("Exit")]
-    [SerializeField] LayerMask exitMask; //layermask for the exit stage block
+    [SerializeField] LayerMask exitMask; //layermask for the exit stage block]
+    [SerializeField] LayerMask paintingMask;
 
     [Header("GoldCollectible")]
     [SerializeField] LayerMask goldCollectibleMask;
@@ -36,7 +38,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask movableMask; // layermask detection for objects with the "movable" tag
     [SerializeField] float pushSpeed = 2f; // speed of which we move the blocks
 
-    float sinkDepth = 1f; 
+    float sinkDepth = 1f;
     float sinkDuration = 0.6f;
 
     float nextDashTime;
@@ -49,6 +51,24 @@ public class PlayerController : MonoBehaviour
     [Header("Player movement SFX")]
     [field: SerializeField] private EventReference PlayerDash;
 
+    [Header("Cinemachine")]
+    [SerializeField] CinemachineVirtualCamera startCam;   // CM2: CinemachineVirtualCamera
+    [SerializeField] CinemachineVirtualCamera doorCam;
+    [SerializeField] int livePriority = 20;
+    [SerializeField] int idlePriority = 0;
+    [SerializeField] LayerMask DoorwayMask;
+
+    [Header("NPC")]
+    [SerializeField] LayerMask NPCMask;
+    [SerializeField] Animator npcAnimator;
+    [SerializeField] Vector3 npcDetectHalfExtents = new Vector3(1.45f, 0.45f, 1.45f); // 3x3 blocks around the player, same height
+    [SerializeField] string npcTrigger = "RunToPainting";
+
+    bool nearNPC;
+    bool inDoorZone;
+
+    [SerializeField] GameObject levelCompletePanel;
+
 
     void Awake()
     {
@@ -58,18 +78,34 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (MenuOverlay.IsPaused) return;
+        if (levelCompletePanel.activeSelf) return; //to prevent movement during the level complete
+
         CheckGoldCollect();
+        CheckDoorway(transform.position);
+        CheckNPC();
 
         if (isMoving) return; // ignore inputs mid-move
+        
 
         Collider[] exits = Physics.OverlapBox(transform.position, Vector3.one * 0.45f, Quaternion.identity, exitMask, QueryTriggerInteraction.Collide); //detect for exit stage block   
         if (exits.Length > 0)
         {
             ExitStage exit = exits[0].GetComponentInParent<ExitStage>();
-            if (exit != null)
+            if (exit != null) // save the level progress after level is complete
             {
-                LevelStarData.SaveLevel(SceneManager.GetActiveScene().name);
                 exit.Load();
+                return;
+            }
+        }
+
+        Collider[] paintings = Physics.OverlapBox(transform.position, Vector3.one * 0.45f, Quaternion.identity, paintingMask, QueryTriggerInteraction.Collide); //detect for exit stage block   
+        if (paintings.Length > 0)
+        {
+            PaintingsLevelLoader painting = paintings[0].GetComponentInParent<PaintingsLevelLoader>();
+            if (painting != null) // save the level progress after level is complete
+            {
+                painting.Load();
                 return;
             }
         }
@@ -105,19 +141,18 @@ public class PlayerController : MonoBehaviour
 
     void TryMove(Vector3 dir)
     {
-        Vector3 pos = transform.position;
         Vector3 ahead = transform.position + dir;
 
         if (!IsSolid(ahead))
         {
             StartCoroutine(Slide(ahead, speed)); // nothing in the way: normal move
-            PlayWalkSound(ahead + Vector3.down); ; // detect below us as we're walkin
+            PlayWalkSound(ahead + Vector3.down); // detect below us as we're walkin
         }
         else if (!IsSolid(ahead + Vector3.up) && !IsBlockSinking(ahead))
         {
             StartCoroutine(Climb(dir)); // exactly 1 block tall, and there's room to flip over it and prevents climbing if the height infront is 2 blocks instead
             PlayWalkSound(ahead); //detect infront of us as we're climbing
-        }  
+        }
     }
 
     IEnumerator Slide(Vector3 target, float moveSpeed)
@@ -152,22 +187,22 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
 
-        
+
         transform.SetPositionAndRotation(startPos + dir + Vector3.up, Quaternion.AngleAxis(180f, axis) * startRot); // snap to the exact end state so float error never builds up over many climbs.
 
         isMoving = false;
     }
 
     bool IsDeadly(Vector3 cellCenter) => Physics.CheckBox(cellCenter, Vector3.one * 0.45f, Quaternion.identity, KillMask, QueryTriggerInteraction.Collide); //same as solid, but makes it so that we dont get blocked by killmasks, and trigger colliders arent ignored.
-    bool IsSolid(Vector3 cellCenter) => Physics.CheckBox(cellCenter, Vector3.one * 0.45f, Quaternion.identity, obstacleMask &~KillMask.value, QueryTriggerInteraction.Ignore); // checks for blocks, what layer and ignore rotation and istrigger colliders,
+    bool IsSolid(Vector3 cellCenter) => Physics.CheckBox(cellCenter, Vector3.one * 0.45f, Quaternion.identity, obstacleMask & ~KillMask.value, QueryTriggerInteraction.Ignore); // checks for blocks, what layer and ignore rotation and istrigger colliders,
 
-   
+
     IEnumerator Fall()
     {
         isMoving = true;
         float velocity = 0f; //start at zero speed to imitate gravity
 
-        
+
         while (!IsSolid(transform.position + Vector3.down) && !IsDeadly(transform.position + Vector3.down)) // keep dropping the player one block at a time until there's a block underneath.
         {
             Vector3 target = transform.position + Vector3.down;
@@ -288,8 +323,6 @@ public class PlayerController : MonoBehaviour
         isMoving = true;
         PlaySinkSound();
 
-        AudioManager.instance.PlayOneShot(GetPlayerSound(GetDeadlyTag()).sink, transform.position);
-
         Vector3 start = transform.position;
         Vector3 end = start + Vector3.down * sinkDepth; //initalizing lerp
         float t = 0f;
@@ -398,4 +431,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    bool IsDoorway(Vector3 cellCenter) => Physics.CheckBox(cellCenter, Vector3.one * 0.45f, Quaternion.identity, DoorwayMask, QueryTriggerInteraction.Collide);  //check for the doorway zone
+    void CheckDoorway(Vector3 cellCenter) // change pov when we enter the camera zone
+    {
+        bool inside = IsDoorway(cellCenter);
+        if (inside == inDoorZone) return; // nothing changed since last frame
+
+        inDoorZone = inside;
+
+        doorCam.Priority = inside ? livePriority : idlePriority; // priorities only change if we are actually in the layermask
+        startCam.Priority = inside ? idlePriority : livePriority;
+    }
+    void CheckNPC()
+    {
+        bool near = Physics.CheckBox(transform.position, npcDetectHalfExtents, Quaternion.identity, NPCMask, QueryTriggerInteraction.Collide);
+
+        if (near == nearNPC) return; //if player isnt near = within the range of the npc, nothing happens
+        nearNPC = near;
+
+        if (near) npcAnimator.SetTrigger(npcTrigger); // if so, then trigger the animation
+    }
 }

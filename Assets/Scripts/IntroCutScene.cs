@@ -3,7 +3,7 @@ using UnityEngine.Video;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class IntroCutscene : MonoBehaviour
+public class IntroCutScene : MonoBehaviour
 {
     [SerializeField] VideoPlayer video;
     [SerializeField] string nextScene = "MainMenuScreen";
@@ -54,9 +54,6 @@ public class IntroCutscene : MonoBehaviour
         finished = true;
 
         video.Stop();
-
-        PlayerPrefs.SetInt(BootLoader.SeenIntroKey, 1); //saves the data that they've seen the intro, same concept with the gold collectible and then Bootloader helps to send the player straight to the main menu instead
-        PlayerPrefs.Save();
 
         loadOp.allowSceneActivation = true; // swap to the preloaded menu
     }

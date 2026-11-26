@@ -1,4 +1,5 @@
 using UnityEngine;
+using FMODUnity;
 
 public class PressurePlate : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class PressurePlate : MonoBehaviour
     [SerializeField] Activatable[] targets; // array list of what can be activated and deactivated. makes it easier for future level building as i can reference platforms and gates + i can activate multiple things
 
     bool appliedState; // the previous state the target is in, activated/deactivated
+
+    [Header("Audio")]
+    [SerializeField] EventReference PressurePlateClick;
 
     bool IsOccupied(Vector3 cellCenter) => Physics.CheckBox(cellCenter, Vector3.one * 0.45f, Quaternion.identity, activatorMask, QueryTriggerInteraction.Collide);
 
@@ -29,7 +33,7 @@ public class PressurePlate : MonoBehaviour
         if (TargetsBusy()) return;
 
         appliedState = pressed;
-
+        AudioManager.instance.PlayOneShot(PressurePlateClick, transform.position);
         foreach (Activatable target in targets)
         {
             if (target == null) continue;

@@ -69,10 +69,10 @@ MonoBehaviour:
   Path: ../3DGD_FMODSTUDIO/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639306844948358125
+  lastModified: 639313102747242483
   FileSizes:
   - Name: Desktop
-    Value: 112608
+    Value: 158784
   Exists: 1
 --- !u!114 &-7201556004856974952
 MonoBehaviour:
@@ -101,6 +101,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-6886844966279470916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/MainMenuTrack
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Music/MainMenuTrack
+  Guid:
+    Data1: -1620684113
+    Data2: 1153058190
+    Data3: -1621159513
+    Data4: -1303133521
+  Banks:
+  - {fileID: 986029757578237375}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 169386
 --- !u!114 &-5700836998329223856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,10 +143,10 @@ MonoBehaviour:
   Path: ../3DGD_FMODSTUDIO/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639306843721722117
+  lastModified: 639313102147045790
   FileSizes:
   - Name: Desktop
-    Value: 1074
+    Value: 1334
   Exists: 1
 --- !u!114 &-5239557496072921540
 MonoBehaviour:
@@ -202,6 +229,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-4839015772208331939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/LevelCompleteSfx
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SFX/LevelCompleteSfx
+  Guid:
+    Data1: -878857687
+    Data2: 1074621590
+    Data3: 736501175
+    Data4: -2074528665
+  Banks:
+  - {fileID: -7511502567362919281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-4781012441481981142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,6 +310,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-2834793744974014282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/ZoneTracks
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Music/ZoneTracks
+  Guid:
+    Data1: -1914439946
+    Data2: 1081275980
+    Data3: 1799932348
+    Data4: -1094317503
+  Banks:
+  - {fileID: 986029757578237375}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 7880296524766640805}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 994386
 --- !u!114 &-2821700390170089371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,11 +454,94 @@ MonoBehaviour:
   Path: ../3DGD_FMODSTUDIO/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639306843721722117
+  lastModified: 639313102147074591
   FileSizes:
   - Name: Desktop
-    Value: 1622
+    Value: 2106
   Exists: 1
+--- !u!114 &-1648006569806703757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/ZoneParameters
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
+  Name: ZoneParameters
+  StudioPath: parameter:/ZoneParameters
+  Min: 0
+  Max: 4
+  Default: 0
+  ID:
+    data1: 2817119478
+    data2: 384684059
+  Type: 2
+  IsGlobal: 1
+  Labels:
+  - ForestZone
+  - VolcanicMountainZone
+  - CaveZone
+  - DungeonZone
+  - MainMenu
+  Exists: 1
+--- !u!114 &-1164870487241605472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Blocks/GalleryFloorWalk
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SFX/Blocks/GalleryFloorWalk
+  Guid:
+    Data1: 1511750296
+    Data2: 1335307878
+    Data3: -1423097431
+    Data4: 1125977062
+  Banks:
+  - {fileID: -7511502567362919281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-231289214825096197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/PressurePlateClick
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SFX/PressurePlateClick
+  Guid:
+    Data1: 1754215201
+    Data2: 1338294773
+    Data3: -421038192
+    Data4: -1052283411
+  Banks:
+  - {fileID: -7511502567362919281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,13 +577,22 @@ MonoBehaviour:
   - {fileID: -5239557496072921540}
   - {fileID: -9059086938304376160}
   - {fileID: -2084157186603764947}
-  EditorParameters: []
+  - {fileID: -1164870487241605472}
+  - {fileID: -6886844966279470916}
+  - {fileID: 5736807104353957769}
+  - {fileID: 8322182349139618907}
+  - {fileID: -4839015772208331939}
+  - {fileID: 6966058638296804749}
+  - {fileID: -2834793744974014282}
+  - {fileID: -231289214825096197}
+  EditorParameters:
+  - {fileID: -1648006569806703757}
   MasterBanks:
   - {fileID: -5700836998329223856}
   StringsBanks:
   - {fileID: -1834082111938613941}
   cacheVersion: 131861
-  cacheTime: 639306844948358125
+  cacheTime: 639313102747242483
   SerializableEventsDict:
   - key: event:/SFX/PlayerDash
     index: 0
@@ -452,6 +626,22 @@ MonoBehaviour:
     index: 14
   - key: event:/SFX/Blocks/PlatformWalk
     index: 15
+  - key: event:/SFX/Blocks/GalleryFloorWalk
+    index: 16
+  - key: event:/Music/MainMenuTrack
+    index: 17
+  - key: event:/SFX/ButtonPress
+    index: 18
+  - key: event:/SFX/Barkie Button
+    index: 19
+  - key: event:/SFX/LevelCompleteSfx
+    index: 20
+  - key: event:/SFX/PaintingTransition
+    index: 21
+  - key: event:/Music/ZoneTracks
+    index: 22
+  - key: event:/SFX/PressurePlateClick
+    index: 23
 --- !u!114 &986029757578237375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -467,10 +657,10 @@ MonoBehaviour:
   Path: ../3DGD_FMODSTUDIO/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 639300979207711127
+  lastModified: 639313092969427780
   FileSizes:
   - Name: Desktop
-    Value: 506
+    Value: 11676064
   Exists: 1
 --- !u!114 &2161152921171330620
 MonoBehaviour:
@@ -526,6 +716,60 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &5736807104353957769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/ButtonPress
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SFX/ButtonPress
+  Guid:
+    Data1: 458745460
+    Data2: 1232265856
+    Data3: -1389467501
+    Data4: -1467889573
+  Banks:
+  - {fileID: -7511502567362919281}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &6966058638296804749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/PaintingTransition
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SFX/PaintingTransition
+  Guid:
+    Data1: -1374549424
+    Data2: 1192821160
+    Data3: -991946107
+    Data4: -945386818
+  Banks:
+  - {fileID: -7511502567362919281}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &7293239108480427815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -575,6 +819,62 @@ MonoBehaviour:
   - {fileID: -7511502567362919281}
   IsStream: 0
   Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7880296524766640805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/ZoneTracks/ZoneParameters
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
+  Name: ZoneParameters
+  StudioPath: 
+  Min: 0
+  Max: 4
+  Default: 0
+  ID:
+    data1: 2817119478
+    data2: 384684059
+  Type: 2
+  IsGlobal: 1
+  Labels:
+  - ForestZone
+  - VolcanicMountainZone
+  - CaveZone
+  - DungeonZone
+  - MainMenu
+  Exists: 1
+--- !u!114 &8322182349139618907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Barkie Button
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SFX/Barkie Button
+  Guid:
+    Data1: -1886270422
+    Data2: 1189575406
+    Data3: -2102606694
+    Data4: -1701121144
+  Banks:
+  - {fileID: -7511502567362919281}
+  IsStream: 0
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 1

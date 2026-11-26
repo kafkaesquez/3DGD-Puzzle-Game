@@ -130,3 +130,10 @@ MonoBehaviour:
     m_Bits: 65
   targets:
   - {fileID: 0}
+  PressurePlateClick:
+    Guid:
+      Data1: 1754215201
+      Data2: 1338294773
+      Data3: -421038192
+      Data4: -1052283411
+    Path: event:/SFX/PressurePlateClick

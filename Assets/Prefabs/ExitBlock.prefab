@@ -126,3 +126,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExitStage
   sceneName: VolcanicMountainZone_Level1
+  timer: {fileID: 0}
+  levelCompletePanel: {fileID: 0}
+  LevelCompleteSFX:
+    Guid:
+      Data1: -878857687
+      Data2: 1074621590
+      Data3: 736501175
+      Data4: -2074528665
+    Path: event:/SFX/LevelCompleteSfx
