@@ -69,10 +69,10 @@ MonoBehaviour:
   Path: ../3DGD_FMODSTUDIO/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639313102747242483
+  lastModified: 639313373430716615
   FileSizes:
   - Name: Desktop
-    Value: 158784
+    Value: 215008
   Exists: 1
 --- !u!114 &-7201556004856974952
 MonoBehaviour:
@@ -128,6 +128,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 169386
+--- !u!114 &-6239465134118661640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Blocks/Plant Block/PlantGrowSFX
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SFX/Blocks/Plant Block/PlantGrowSFX
+  Guid:
+    Data1: 1066600422
+    Data2: 1175147386
+    Data3: -844448368
+    Data4: -382720882
+  Banks:
+  - {fileID: -7511502567362919281}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-5700836998329223856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,11 +170,38 @@ MonoBehaviour:
   Path: ../3DGD_FMODSTUDIO/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639313102147045790
+  lastModified: 639313342694017078
   FileSizes:
   - Name: Desktop
     Value: 1334
   Exists: 1
+--- !u!114 &-5288421839812737824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Blocks/Plant Block/PlantShrinkSfx
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SFX/Blocks/Plant Block/PlantShrinkSfx
+  Guid:
+    Data1: 360262683
+    Data2: 1275972504
+    Data3: 510879116
+    Data4: 439291495
+  Banks:
+  - {fileID: -7511502567362919281}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-5239557496072921540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,6 +364,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-3542538729964273002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Blocks/Plant Block/SpawnPlantSfx
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SFX/Blocks/Plant Block/SpawnPlantSfx
+  Guid:
+    Data1: -1243820948
+    Data2: 1270771634
+    Data3: -2002780534
+    Data4: -490196722
+  Banks:
+  - {fileID: -7511502567362919281}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-2834793744974014282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -376,6 +457,33 @@ MonoBehaviour:
     Data2: 1235103524
     Data3: 524480914
     Data4: 497143225
+  Banks:
+  - {fileID: -7511502567362919281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-2113653514105166270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Blocks/Plant Block/PlantWalk
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SFX/Blocks/Plant Block/PlantWalk
+  Guid:
+    Data1: 842888650
+    Data2: 1173068746
+    Data3: 1015765148
+    Data4: 1667419109
   Banks:
   - {fileID: -7511502567362919281}
   IsStream: 0
@@ -454,10 +562,10 @@ MonoBehaviour:
   Path: ../3DGD_FMODSTUDIO/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639313102147074591
+  lastModified: 639313342694029719
   FileSizes:
   - Name: Desktop
-    Value: 2106
+    Value: 2394
   Exists: 1
 --- !u!114 &-1648006569806703757
 MonoBehaviour:
@@ -585,6 +693,12 @@ MonoBehaviour:
   - {fileID: 6966058638296804749}
   - {fileID: -2834793744974014282}
   - {fileID: -231289214825096197}
+  - {fileID: 237349525066171556}
+  - {fileID: -5288421839812737824}
+  - {fileID: -3542538729964273002}
+  - {fileID: 6090797676839013312}
+  - {fileID: -2113653514105166270}
+  - {fileID: -6239465134118661640}
   EditorParameters:
   - {fileID: -1648006569806703757}
   MasterBanks:
@@ -592,7 +706,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: -1834082111938613941}
   cacheVersion: 131861
-  cacheTime: 639313102747242483
+  cacheTime: 639313373430716615
   SerializableEventsDict:
   - key: event:/SFX/PlayerDash
     index: 0
@@ -642,6 +756,45 @@ MonoBehaviour:
     index: 22
   - key: event:/SFX/PressurePlateClick
     index: 23
+  - key: event:/SFX/Blocks/Plant Block/PlantPush
+    index: 24
+  - key: event:/SFX/Blocks/Plant Block/PlantShrinkSfx
+    index: 25
+  - key: event:/SFX/Blocks/Plant Block/SpawnPlantSfx
+    index: 26
+  - key: event:/SFX/Blocks/Plant Block/PlantPull
+    index: 27
+  - key: event:/SFX/Blocks/Plant Block/PlantWalk
+    index: 28
+  - key: event:/SFX/Blocks/Plant Block/PlantGrowSFX
+    index: 29
+--- !u!114 &237349525066171556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Blocks/Plant Block/PlantPush
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SFX/Blocks/Plant Block/PlantPush
+  Guid:
+    Data1: -1931196414
+    Data2: 1100601404
+    Data3: -1740787576
+    Data4: -1077703294
+  Banks:
+  - {fileID: -7511502567362919281}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &986029757578237375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,7 +810,7 @@ MonoBehaviour:
   Path: ../3DGD_FMODSTUDIO/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 639313092969427780
+  lastModified: 639313325787251801
   FileSizes:
   - Name: Desktop
     Value: 11676064
@@ -738,6 +891,33 @@ MonoBehaviour:
   - {fileID: -7511502567362919281}
   IsStream: 0
   Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &6090797676839013312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Blocks/Plant Block/PlantPull
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SFX/Blocks/Plant Block/PlantPull
+  Guid:
+    Data1: 1992071797
+    Data2: 1248485376
+    Data3: 303352491
+    Data4: -1089384629
+  Banks:
+  - {fileID: -7511502567362919281}
+  IsStream: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1

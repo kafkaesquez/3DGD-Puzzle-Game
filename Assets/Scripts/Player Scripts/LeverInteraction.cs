@@ -7,7 +7,7 @@ public class LeverInteraction : MonoBehaviour
     [SerializeField] LayerMask LeverBlock;
 
     [Header("Platform")]
-    [SerializeField] RotatingPlatform Platform; // drag the platform that gets rotated here
+    [SerializeField] RotatingPlatform[] Platforms; // drag the platform that gets rotated here
 
     [Header("AudioClip")]
     [SerializeField] EventReference LeverClick;
@@ -39,9 +39,16 @@ public class LeverInteraction : MonoBehaviour
 
     void LeverInteracted()
     {
-        if (Platform == null || Platform.IsRotating) return;
+        if (Platforms == null || Platforms.Length == 0) return;
+        foreach (RotatingPlatform p in Platforms)
+        {
+            if (p != null && p.IsRotating) return; //check all the platforms in the scene if theyre rotating and return if so
+        }
 
-        Platform.Rotate();
+        foreach (RotatingPlatform p in Platforms)
+        {
+            if (p != null) p.Rotate();
+        }
         AudioManager.instance.PlayOneShot(LeverClick, transform.position);
     }
 }
