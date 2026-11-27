@@ -35,6 +35,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DungeonZone_Level1.unity
     guid: b9c607c01f0c1bc4bb99601a37f5465a
+  - enabled: 1
+    path: Assets/Scenes/DungeonZone_Level2.unity
+    guid: 6298eb862d130a9438858f777d143832
+  - enabled: 1
+    path: Assets/Scenes/DungeonZone_Level3.unity
+    guid: 56a34de211a110945ab75ed70f21f49a
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

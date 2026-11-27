@@ -2,7 +2,6 @@ using Cinemachine;
 using FMODUnity;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -49,7 +48,9 @@ public class PlayerController : MonoBehaviour
     [field: SerializeField] private EventReference GoldCollected;
 
     [Header("Player movement SFX")]
-    [field: SerializeField] private EventReference PlayerDash;
+    [SerializeField] private EventReference PlayerDash;
+    [SerializeField] private EventReference DashError;
+
 
     [Header("Cinemachine")]
     [SerializeField] CinemachineVirtualCamera startCam;   // CM2: CinemachineVirtualCamera
@@ -57,6 +58,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int livePriority = 20;
     [SerializeField] int idlePriority = 0;
     [SerializeField] LayerMask DoorwayMask;
+    [SerializeField] bool canToggleCam = true;
 
     [Header("NPC")]
     [SerializeField] LayerMask NPCMask;
@@ -69,11 +71,20 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] GameObject levelCompletePanel;
 
+    
+    Transform respawnPoint;
+    float respawnDelay = 0.3f; // gonna make it so that the level doesnt restart if player dies, i feel like its very frustrating 
+    Vector3 spawnPos;
+    Quaternion spawnRot;
+
 
     void Awake()
     {
         DashCooldownSlider.gameObject.SetActive(false); // hidden until the first dash
         LevelStarData.ResetAttempt(); //refresh the level data (collectible) when level is reloaded
+
+        spawnPos = respawnPoint != null ? respawnPoint.position : transform.position;
+        spawnRot = respawnPoint != null ? respawnPoint.rotation : transform.rotation;
     }
 
     void Update()
@@ -84,6 +95,7 @@ public class PlayerController : MonoBehaviour
         CheckGoldCollect();
         CheckDoorway(transform.position);
         CheckNPC();
+        if (canToggleCam && Input.GetKeyDown(KeyCode.T)) (doorCam.Priority, startCam.Priority) = (startCam.Priority, doorCam.Priority); // if player presses t, swap the priority for the cinemachine cameras
 
         if (isMoving) return; // ignore inputs mid-move
         
@@ -154,6 +166,11 @@ public class PlayerController : MonoBehaviour
             PlayWalkSound(ahead); //detect infront of us as we're climbing
         }
     }
+    void Respawn()
+    {
+        transform.SetPositionAndRotation(spawnPos, spawnRot);
+        isMoving = false; // unlock inputs again
+    }
 
     IEnumerator Slide(Vector3 target, float moveSpeed)
     {
@@ -216,8 +233,8 @@ public class PlayerController : MonoBehaviour
 
             if (transform.position.y < killY)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // if the player clips out and falls out of the world, reload the level (note for self, add UI for lose screen and then restart button.
-                yield break; //stop the courotine so nothing else runs while scene is reloaded.
+                Respawn();
+                yield break;
             }
         }
 
@@ -236,7 +253,11 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 1; i <= dashBlocks; i++) // not really necessary but works if we change the dash distance in the future. how it works is basically by loop, check for any solid blocks in the path of the dash. if so, cancel dash and return
         {
-            if (IsSolid(start + dir * i)) return;
+            if (IsSolid(start + dir * i))
+            {
+                AudioManager.instance.PlayOneShot(DashError, transform.position);
+                return;
+            }
         }
 
         nextDashTime = Time.time + dashCooldown; // only start the cooldown on a successful dash
@@ -333,7 +354,8 @@ public class PlayerController : MonoBehaviour
             transform.position = Vector3.Lerp(start, end, t); // linear interpolation to make a smooth sinking "animation" when player touches lava or water
             yield return null;
         }
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        yield return new WaitForSeconds(respawnDelay);
+        Respawn();
     }
 
     bool IsBlockSinking(Vector3 cell)

@@ -106,8 +106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468f5f4b9a8d8e14db26d1c04b298c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  speed: 5
-  climbTime: 0.35
+  speed: 6
+  climbTime: 0.4
   obstacleMask:
     serializedVersion: 2
     m_Bits: 4168
@@ -330,6 +330,13 @@ MonoBehaviour:
       Data3: 2130040716
       Data4: 819108928
     Path: event:/SFX/PlayerDash
+  DashError:
+    Guid:
+      Data1: -1264170803
+      Data2: 1163921603
+      Data3: -439269444
+      Data4: 290734037
+    Path: event:/SFX/DashError
   startCam: {fileID: 0}
   doorCam: {fileID: 0}
   livePriority: 20

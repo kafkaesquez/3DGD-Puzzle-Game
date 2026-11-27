@@ -6,7 +6,7 @@ public class FMODEvents : MonoBehaviour
     public static FMODEvents instance {  get; private set; }
 
     [field: Header("Player SFX")]
-    [field: SerializeField] public EventReference playerMovement { get; private set; } // using field: allows us to see the private syntax
+    [field: SerializeField] public EventReference playerMovement { get; private set; } // field: puts serializefield on the hidden field behind the property, so it shows in inspector but stays read only to other scripts
 
 
     [field: Header("Music")]

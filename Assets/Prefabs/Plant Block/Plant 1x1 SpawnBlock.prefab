@@ -127,6 +127,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlantSpawn
   plant: {fileID: 0}
   plantPrefab: {fileID: 0}
+  blockingMask:
+    serializedVersion: 2
+    m_Bits: 73
   spawnPlant:
     Guid:
       Data1: -1243820948
